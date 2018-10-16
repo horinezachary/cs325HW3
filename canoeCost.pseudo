@@ -1,0 +1,21 @@
+function canoeCost(n,R[]){
+    C[],P[];
+    C[1] = 0;
+    for (i = 2 to n){
+      min = R[1,i];
+      for (k = 2 to i-1){
+        if (C[k] + R[k,i] < min){
+          min = C[k]+R[k,i];
+        }
+        C[i] = min;
+      }
+    }
+    return C[n];
+}
+
+function printSequence(P[],i){
+  if (i > 1){
+    printSequence(P[], P[i]);
+    output "Rent at : " P[i] ", Return at: " i;
+  }
+}
