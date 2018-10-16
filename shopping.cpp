@@ -117,10 +117,7 @@ string shoppingOptimization(int caseNumber, int numItems, int* prices, int* weig
         else if (weights[i-1] <= w){
           int a = prices[i-1] + V[i-1][w-weights[i-1]];
           int b = V[i-1][w];
-          int max;
-          if (a >= b) {max = a;}
-          if (a < b) {max = b;}
-          V[i][w] = max;
+          if (a > b) {V[i][w] = a;}else {V[i][w] = b;}
           keep[i][w] = 1;
         }
         else {
