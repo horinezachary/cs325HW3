@@ -8,7 +8,7 @@
 
 using namespace std;
 
-void shoppingOptimization(int caseNumber, int numItems, int* prices, int* weights, int numFamilyMembers, int* familyMembers);
+string shoppingOptimization(int caseNumber, int numItems, int* prices, int* weights, int numFamilyMembers, int* familyMembers);
 
 int main(){
   ifstream inFile;  //set up the file reader and attempt to read the file
@@ -98,7 +98,8 @@ int main(){
   outfile << fileout;
   outfile.close();
 }
-void shoppingOptimization(int caseNumber, int numItems, int* prices, int* weights, int numFamilyMembers, int* familyMembers){
+
+string shoppingOptimization(int caseNumber, int numItems, int* prices, int* weights, int numFamilyMembers, int* familyMembers){
   int totalPrice = 0;
   string output = "";
   for (int membercount = 0; membercount < numFamilyMembers; membercount++){
@@ -137,4 +138,14 @@ void shoppingOptimization(int caseNumber, int numItems, int* prices, int* weight
   cout << "Total Price " << totalPrice << "\n";
   cout << "Member Items:\n";
   cout << output << endl;
+
+  string retstr = "Test Case ";
+  retstr.append(to_string(caseNumber));
+  retstr.append("\nTotal Price ");
+  retstr.append(to_string(totalPrice));
+  retstr.append("\nMember Items:\n");
+  retstr.append(output);
+  retstr.append("\n");
+
+  return retstr;
 }
