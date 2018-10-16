@@ -88,7 +88,7 @@ int main(){
   }
   //cout << "SHOPPING" << endl;
   fileout.append(shoppingOptimization(caseNumber,numCaseItems,casePrices,caseWeights,numFamilyMembers,caseFamilyMembers));
-
+  //cout << fileout;
   ofstream outfile;
   outfile.open("shopping.out");
   if (!outfile) {  //make sure the file exists
@@ -144,10 +144,10 @@ string shoppingOptimization(int caseNumber, int numItems, int* prices, int* weig
     output.append("\n");
     totalPrice += V[numItems][maxWeight];
   }
-  cout << "Test Case " << caseNumber << "\n";
-  cout << "Total Price " << totalPrice << "\n";
-  cout << "Member Items:\n";
-  cout << output << endl;
+  //cout << "Test Case " << caseNumber << "\n";
+  //cout << "Total Price " << totalPrice << "\n";
+  //cout << "Member Items:\n";
+  //cout << output << endl;
 
   string retstr = "Test Case ";
   retstr.append(to_string(caseNumber));
