@@ -129,15 +129,21 @@ string shoppingOptimization(int caseNumber, int numItems, int* prices, int* weig
         }
       }
     }
-
-    int K = maxWeight;
-    for (int i = numItems; i >= 1; i--){
-      if (keep[i][K] == true){
-        output.append(" ");
-        output.append(to_string(i));
-        K = K-weights[i];
+    int res = V[numItems][maxWeight];;
+    int k = maxWeight;
+    string subString = "";
+    for (int i = numItems; i > 0 && res > 0; i--){
+      if (!(res == V[i-1][k])){
+        string temp = subString;
+        subString = " ";
+        //subString.append(" ");
+        subString.append(to_string(i));
+        subString.append(temp);
+        res = res - prices[i-1];
+        k = k-weights[i-1];
       }
     }
+    output.append(subString);
     output.append("\n");
     totalPrice += V[numItems][maxWeight];
   }
