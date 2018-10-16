@@ -8,24 +8,28 @@
 
 using namespace std;
 
+void shoppingOptimization(int caseNumber, int numItems, int* prices, int* weights, int numFamilyMembers, int* familyMembers);
+
 int main(){
   ifstream inFile;  //set up the file reader and attempt to read the file
-  inFile.open("data.txt");
+  inFile.open("shopping.txt");
   if (!inFile) {  //make sure the file exists
-    cout << "Unable to open data.txt";
+    cout << "Unable to open shopping.txt";
     exit(1);   // EXIT PROGRAM
   }
   string line;
-  int numcases;
+  int numCases;
   int caseNumber;
   bool firstLine = true;
+  bool firstCaseLine = false;
   int numCaseItems = 0;
-  int caseItemCounter;
+  int caseItemCounter = 0;
   int* casePrices;
   int* caseWeights;
   int numFamilyMembers;
   int caseFamilyCounter;
   int* caseFamilyMembers;
+
   while(getline(inFile,line)){ //gets one line
     stringstream lineStream(line);
     string cell;
@@ -42,8 +46,8 @@ int main(){
     else if (firstCaseLine){
       numCaseItems = stoi(parsedRow.at(0));
       firstCaseLine = false;
-      int* casePrices = new int[numCaseItems];
-      int* caseWeights = new int[numCaseItems];
+      casePrices = new int[numCaseItems];
+      caseWeights = new int[numCaseItems];
       caseItemCounter = 0;
       caseNumber++;
     }
