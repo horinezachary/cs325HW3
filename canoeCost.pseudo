@@ -6,11 +6,13 @@ function canoeCost(n,R[]){
       for (k = 2 to i-1){
         if (C[k] + R[k,i] < min){
           min = C[k]+R[k,i];
+          P[i] = k;
         }
+        else{P[i] = 1;}
         C[i] = min;
       }
     }
-    return C[n];
+    return P[];
 }
 
 function printSequence(P[],i){
