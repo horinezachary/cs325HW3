@@ -28,3 +28,9 @@ function shopping(W, weights[], values[], n){
     }
   }
 }
+
+function main(numItems, itemWeights[], itemValues[], familySize, familyWeights[]){
+  for (i = 1 to familySize){  //for each family member, run the knapsack problem
+    shopping(familyWeights[i], itemWeights[], itemValues[], numItems);
+  }
+}
