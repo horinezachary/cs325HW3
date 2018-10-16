@@ -106,7 +106,7 @@ string shoppingOptimization(int caseNumber, int numItems, int* prices, int* weig
     int V[numItems+1][maxWeight+1]; //array for weights and item counts
     bool keep[numItems+1][maxWeight+1]; //whether or not there is an item here
 
-    for (int i = 0; i <= numItems; i++){  //step throught Items
+    for (int i = 0; i <= numItems; i++){  //step through Items
       for (int w = 0; w <= maxWeight; w++){ //increase weight until max weight
         if (i == 0 || w == 0){
           V[i][w] = 0;
