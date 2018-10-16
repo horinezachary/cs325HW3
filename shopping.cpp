@@ -71,3 +71,43 @@ int main(){
     }
   }
 }
+void shoppingOptimization(int caseNumber, int numItems, int* prices, int* weights, int numFamilyMembers, int* familyMembers){
+  int totalPrice = 0;
+  string output = "";
+  for (int membercount = 0; membercount < numFamilyMembers; membercount++){
+    int maxWeight = familyMembers[membercount];
+    output.append(to_string(membercount+1));
+    output.append(":");
+    int V[numItems][maxWeight];
+    bool keep[numItems][maxWeight];
+    for (int w = 0; w < maxWeight; w++){
+      V[0][w] = 0;
+    }
+    for (int i = 1; i < numItems; i++){
+      for (int w = 0; w < maxWeight; w++){
+        if ((weights[i] <= w) && (prices[i] + V[i-1][w-weights[i]] > V[i-1][w])){
+          V[i][w] = prices[i] + V[i-1][w-weights[i]];
+          keep[i][w] = true;
+        }
+        else {
+          V[i][w] = V[i-1][w];
+          keep[i][w] = false;
+        }
+      }
+    }
+    int K = maxWeight;
+    for (int i = numItems; i >= 1; i--){
+      if (keep[i][K] == true){
+        output.append(" ");
+        output.append(to_string(i));
+        K = K-weights[i];
+      }
+    }
+    output.append("\n");
+    totalPrice += V[numItems][maxWeight];
+  }
+  cout << "Test Case " << caseNumber << "\n";
+  cout << "Total Price " << totalPrice << "\n";
+  cout << "Member Items:\n";
+  cout << output << endl;
+}
