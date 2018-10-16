@@ -50,10 +50,6 @@ int main(){
       caseNumber = 0;
     }
     else if (firstCaseLine){
-      if (exec){
-        //cout << "SHOPPING" << endl;
-        fileout.append(shoppingOptimization(caseNumber,numCaseItems,casePrices,caseWeights,numFamilyMembers,caseFamilyMembers));
-      }
       //cout << "case" << endl;
       numCaseItems = stoi(parsedRow.at(0));
       firstCaseLine = false;
@@ -83,11 +79,10 @@ int main(){
     if (caseFamilyCounter == numFamilyMembers){
       caseFamilyCounter++;
       firstCaseLine = true;
-      exec = true;
+      //cout << "SHOPPING" << endl;
+      fileout.append(shoppingOptimization(caseNumber,numCaseItems,casePrices,caseWeights,numFamilyMembers,caseFamilyMembers));
     }
   }
-  //cout << "SHOPPING" << endl;
-  fileout.append(shoppingOptimization(caseNumber,numCaseItems,casePrices,caseWeights,numFamilyMembers,caseFamilyMembers));
   //cout << fileout;
   ofstream outfile;
   outfile.open("shopping.out");
