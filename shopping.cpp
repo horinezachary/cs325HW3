@@ -88,6 +88,15 @@ int main(){
   }
   //cout << "SHOPPING" << endl;
   fileout.append(shoppingOptimization(caseNumber,numCaseItems,casePrices,caseWeights,numFamilyMembers,caseFamilyMembers));
+
+  ofstream outfile;
+  outfile.open("shopping.out");
+  if (!outfile) {  //make sure the file exists
+    cout << "Unable to open insert.out";
+    exit(1);   // EXIT PROGRAM
+  }
+  outfile << fileout;
+  outfile.close();
 }
 void shoppingOptimization(int caseNumber, int numItems, int* prices, int* weights, int numFamilyMembers, int* familyMembers){
   int totalPrice = 0;
