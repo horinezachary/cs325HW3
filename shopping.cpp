@@ -22,6 +22,7 @@ int main(){
   int caseNumber;
   bool firstLine = true;
   bool firstCaseLine = false;
+  bool exec = false;
   int numCaseItems = 0;
   int caseItemCounter = 0;
   int* casePrices;
@@ -29,14 +30,19 @@ int main(){
   int numFamilyMembers;
   int caseFamilyCounter;
   int* caseFamilyMembers;
-
+  int linecount = 1;
+  string fileout = "";
   while(getline(inFile,line)){ //gets one line
+    //cout << "LINE: " << linecount << endl;
+    linecount++;
     stringstream lineStream(line);
     string cell;
     vector<string> parsedRow;
     while(getline(lineStream,cell,' ')){  //parses line and puts numbers into string vector
       parsedRow.push_back(cell);
+      //cout << cell;
     }
+    //cout << endl;
     if (firstLine){
       numCases = stoi(parsedRow.at(0));
       firstLine = false;
@@ -44,6 +50,11 @@ int main(){
       caseNumber = 0;
     }
     else if (firstCaseLine){
+      if (exec){
+        //cout << "SHOPPING" << endl;
+        fileout.append(shoppingOptimization(caseNumber,numCaseItems,casePrices,caseWeights,numFamilyMembers,caseFamilyMembers));
+      }
+      //cout << "case" << endl;
       numCaseItems = stoi(parsedRow.at(0));
       firstCaseLine = false;
       casePrices = new int[numCaseItems];
@@ -52,24 +63,31 @@ int main(){
       caseNumber++;
     }
     else if (caseItemCounter < numCaseItems) {
+      //cout << "Item " << caseItemCounter << endl;
       casePrices[caseItemCounter] = stoi(parsedRow.at(0));
       caseWeights[caseItemCounter] = stoi(parsedRow.at(1));
       caseItemCounter++;
     }
     else if (caseItemCounter == numCaseItems){
       numFamilyMembers = stoi(parsedRow.at(0));
+      //cout << "Family Members: " << numFamilyMembers << endl;
       caseFamilyMembers = new int[numFamilyMembers];
+      caseItemCounter++;
       caseFamilyCounter = 0;
     }
     else if (caseFamilyCounter < numFamilyMembers){
+      //cout << "Weight: " << stoi(parsedRow.at(0)) << endl;
       caseFamilyMembers[caseFamilyCounter] = stoi(parsedRow.at(0));
       caseFamilyCounter++;
     }
-    else{
-      shoppingOptimization(caseNumber,numCaseItems,casePrices,caseWeights,numFamilyMembers,caseFamilyMembers);
+    if (caseFamilyCounter == numFamilyMembers){
+      caseFamilyCounter++;
       firstCaseLine = true;
+      exec = true;
     }
   }
+  //cout << "SHOPPING" << endl;
+  fileout.append(shoppingOptimization(caseNumber,numCaseItems,casePrices,caseWeights,numFamilyMembers,caseFamilyMembers));
 }
 void shoppingOptimization(int caseNumber, int numItems, int* prices, int* weights, int numFamilyMembers, int* familyMembers){
   int totalPrice = 0;
