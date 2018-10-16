@@ -106,23 +106,30 @@ string shoppingOptimization(int caseNumber, int numItems, int* prices, int* weig
     int maxWeight = familyMembers[membercount];
     output.append(to_string(membercount+1));
     output.append(":");
-    int V[numItems][maxWeight];
-    bool keep[numItems][maxWeight];
-    for (int w = 0; w < maxWeight; w++){
-      V[0][w] = 0;
-    }
-    for (int i = 1; i < numItems; i++){
-      for (int w = 0; w < maxWeight; w++){
-        if ((weights[i] <= w) && (prices[i] + V[i-1][w-weights[i]] > V[i-1][w])){
-          V[i][w] = prices[i] + V[i-1][w-weights[i]];
-          keep[i][w] = true;
+    int V[numItems+1][maxWeight+1];
+    bool keep[numItems+1][maxWeight+1];
+
+    for (int i = 0; i <= numItems; i++){
+      for (int w = 0; w <= maxWeight; w++){
+        if (i == 0 || w == 0){
+          V[i][w] = 0;
+        }
+        else if (weights[i-1] <= w){
+          int a = prices[i-1] + V[i-1][w-weights[i-1]];
+          int b = V[i-1][w];
+          int max;
+          if (a >= b) {max = a;}
+          if (a < b) {max = b;}
+          V[i][w] = max;
+          keep[i][w] = 1;
         }
         else {
           V[i][w] = V[i-1][w];
-          keep[i][w] = false;
+          keep[i][w] = 0;
         }
       }
     }
+
     int K = maxWeight;
     for (int i = numItems; i >= 1; i--){
       if (keep[i][K] == true){
