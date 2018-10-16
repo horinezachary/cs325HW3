@@ -7,11 +7,13 @@ function shopping(W, weights[], values[], n){
       if (i == 0 || w == 0){
         V[i][w] = 0;
       }
-      else if (weights[i-1] <= w){  //if the weight in the square below is lower than the current max, find the max and keep it
+      //if the weight in the last value is lower than the current max, find the max and keep it
+      else if (weights[i-1] <= w){
         V[i][w] = max((V[i-1][w]) or (values[i-1] + V[i-1][w-weights[i-1]]));
         K[i][w] = 1;
       }
-      else {  //otherwise, set the current same as the last, and don't keep it
+      //otherwise, set the current same as the last, and don't keep it
+      else {
         V[i][w] = V[i-1][w];
         K[i][w] = 0;
       }
@@ -20,7 +22,8 @@ function shopping(W, weights[], values[], n){
   //walk back through and compile path list
   int res = V[n][W];
   int k = W;
-  for (int i = n; i > 0 && res > 0; i--){  //step through the list until there either are no more items or the total has been reached
+  //step through the list until there either are no more items or the total has been reached
+  for (int i = n; i > 0 && res > 0; i--){
     if (!(res == V[i-1][k])){
       output i;
       res = res - values[i-1];
